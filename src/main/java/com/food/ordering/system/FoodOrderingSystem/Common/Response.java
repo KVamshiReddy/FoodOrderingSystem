@@ -1,4 +1,4 @@
-package com.food.ordering.system.FoodOrderingSystem.Response;
+package com.food.ordering.system.FoodOrderingSystem.Common;
 
 import lombok.Data;
 
