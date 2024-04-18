@@ -18,10 +18,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @Operation(summary = "Create or Update a User")
-//    @PostMapping(path = "")
-//    public Response createUser(@Validated @RequestBody User data){
-//        return new Response(userService.createUser(data));
-//    }
+    @Operation(summary = "Create or Update a User")
+    @PostMapping(path = "")
+    public Response createUser(@Validated @RequestBody User data){
+        //return new Response(userService.createUser(data));
+        return new Response("HI");
+    }
 
 }
