@@ -4,6 +4,7 @@ import com.food.ordering.system.FoodOrderingSystem.Common.AddressDetails;
 import com.food.ordering.system.FoodOrderingSystem.Common.CommonConstants;
 import com.food.ordering.system.FoodOrderingSystem.Common.ContactDetails;
 import com.github.f4b6a3.uuid.UuidCreator;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.apache.catalina.LifecycleState;
 import org.springframework.data.annotation.Id;
@@ -19,6 +20,7 @@ public class Restaurant {
 
     @Id
     private UUID id;
+    @NotNull(message = "Restaurant Name is Mandatory")
     private String name;
     private String parentName;
     @Transient

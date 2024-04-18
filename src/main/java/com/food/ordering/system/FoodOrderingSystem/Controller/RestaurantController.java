@@ -7,6 +7,7 @@ import com.food.ordering.system.FoodOrderingSystem.Service.RestaurantService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.apache.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -20,7 +21,7 @@ public class RestaurantController {
 
     @Operation(summary = "Create a new Restaurant")
     @PostMapping(path = "/create")
-    public Response createRestaurant(@RequestBody Restaurant data){
+    public Response createRestaurant(@Validated @RequestBody Restaurant data){
         return new Response(restaurantService.createRestaurant(data));
     }
 

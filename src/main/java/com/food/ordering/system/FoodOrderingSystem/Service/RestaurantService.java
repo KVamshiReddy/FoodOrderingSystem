@@ -13,12 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -37,9 +35,6 @@ public class RestaurantService {
     private ItemRepository itemRepository;
 
     @Autowired
-    private MongoOperations mongoOperations;
-
-    @Autowired
     private MongoTemplate mongoTemplate;
 
     public Restaurant createRestaurant(Restaurant data){
@@ -48,6 +43,7 @@ public class RestaurantService {
             item.setRestaurantId(data.getId());
             itemRepository.save(item);
         }
+        data.getContactDetails().setId(data.getId());
         return restaurantRepo.save(data);
     }
 
@@ -72,7 +68,7 @@ public class RestaurantService {
         }
         count = mongoTemplate.count(query, Restaurant.class);
         query.with(pageable);
-        List<Restaurant> restaurants = mongoOperations.find(query, Restaurant.class);
+        List<Restaurant> restaurants = mongoTemplate.find(query, Restaurant.class);
         for (Restaurant restaurant : restaurants){
             List<Items> items = getRestaurantMenu(restaurant.getId());
             restaurant.setMenu(items);
