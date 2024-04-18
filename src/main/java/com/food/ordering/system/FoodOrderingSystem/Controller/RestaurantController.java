@@ -5,6 +5,7 @@ import com.food.ordering.system.FoodOrderingSystem.Models.Restaurant;
 import com.food.ordering.system.FoodOrderingSystem.RestaurantSearchRequest;
 import com.food.ordering.system.FoodOrderingSystem.Service.RestaurantService;
 import io.swagger.v3.oas.annotations.Operation;
+import org.apache.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +24,11 @@ public class RestaurantController {
         return new Response(restaurantService.createRestaurant(data));
     }
 
-//    @Operation(summary = "Get Restaurant With Menu")
-//    @GetMapping(path = "/search")
-//    public Response getRestaurant(@RequestBody RestaurantSearchRequest data){
-//        return new Response(restaurantService.getRestaurant(data));
-//    }
+    @Operation(summary = "Get Restaurant With Menu")
+    @PutMapping(path = "/search")
+    public Response getRestaurant(@RequestBody RestaurantSearchRequest data) throws ParseException {
+        return new Response(restaurantService.getRestaurant(data));
+    }
 
     @Operation(summary = "Get Restaurant Specific Menu")
     @GetMapping(path = "/menu")

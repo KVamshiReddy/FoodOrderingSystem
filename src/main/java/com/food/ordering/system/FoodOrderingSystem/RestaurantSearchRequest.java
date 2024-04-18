@@ -10,6 +10,9 @@ public class RestaurantSearchRequest {
 
     private UUID restaurantId;
     private String searchText;
+    private int pageNo;
+    private int size;
+    private CommonConstants.RESTAURANT_TYPE type;
 
 
 }
