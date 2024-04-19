@@ -12,5 +12,4 @@ public class ContactDetails {
     private String mobile;
     private String countryCode;
     private String email;
-
 }

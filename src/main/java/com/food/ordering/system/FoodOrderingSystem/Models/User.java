@@ -2,6 +2,7 @@ package com.food.ordering.system.FoodOrderingSystem.Models;
 
 import com.food.ordering.system.FoodOrderingSystem.Common.CommonConstants;
 import com.food.ordering.system.FoodOrderingSystem.Common.ContactDetails;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -20,6 +21,8 @@ public class User {
     private ContactDetails contactDetails;
     @NotNull
     private CommonConstants.CUSTOMER_TYPE type;
+    @NotBlank
+    private String password;
     private Date createdTimeStamp;
     private Date updatedTimeStamp;
 
@@ -30,5 +33,4 @@ public class User {
             this.updatedTimeStamp = createdTimeStamp;
         }
     }
-
 }

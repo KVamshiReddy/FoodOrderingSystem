@@ -1,9 +1,11 @@
 package com.food.ordering.system.FoodOrderingSystem.Service;
 
+import com.food.ordering.system.FoodOrderingSystem.Common.CommonConstants;
 import com.food.ordering.system.FoodOrderingSystem.Common.ListResponse;
 import com.food.ordering.system.FoodOrderingSystem.Exceptions.ResourceNotFoundException;
 import com.food.ordering.system.FoodOrderingSystem.Models.Items;
 import com.food.ordering.system.FoodOrderingSystem.Models.Restaurant;
+import com.food.ordering.system.FoodOrderingSystem.Models.User;
 import com.food.ordering.system.FoodOrderingSystem.Repository.ItemRepository;
 import com.food.ordering.system.FoodOrderingSystem.Repository.RestaurantRepo;
 import com.food.ordering.system.FoodOrderingSystem.RestaurantSearchRequest;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -37,13 +40,20 @@ public class RestaurantService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @Autowired
+    private MongoOperations mongoOperations;
+
     public Restaurant createRestaurant(Restaurant data){
+        User user = new User();
+        user.setContactDetails(data.getContactDetails());
+        user.setType(CommonConstants.CUSTOMER_TYPE.REPRESENTATIVE);
         data.setParentName(data.getParentName().toUpperCase());
         for (Items item : data.getMenu()){
             item.setRestaurantId(data.getId());
             itemRepository.save(item);
         }
         data.getContactDetails().setId(data.getId());
+        mongoOperations.save(user, "representatives");
         return restaurantRepo.save(data);
     }
 

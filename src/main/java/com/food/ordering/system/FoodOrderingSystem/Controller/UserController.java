@@ -6,10 +6,9 @@ import com.food.ordering.system.FoodOrderingSystem.Service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -20,9 +19,17 @@ public class UserController {
 
     @Operation(summary = "Create or Update a User")
     @PostMapping(path = "")
-    public Response createUser(@Validated @RequestBody User data){
-        //return new Response(userService.createUser(data));
-        return new Response("HI");
+    public Response createUser(@Validated @RequestBody User user){
+        return new Response(userService.createUser(user));
+    }
+
+    @DeleteMapping(path = "")
+    public Response deleteUser(@RequestParam UUID customerId){
+        return new Response(userService.deleteUser(customerId));
+    }
+    @GetMapping(path = "")
+    public Response getUser(@RequestParam UUID customerId){
+        return new Response(userService.getUser(customerId));
     }
 
 }
